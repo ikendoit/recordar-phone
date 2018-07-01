@@ -1,0 +1,111 @@
+import React, { Component } from "react";
+import {
+  ScrollView,
+  View,
+  TouchableHighlight,
+  Modal,
+	FlatList,
+	ListItem,
+	PanResponder,
+	Animated
+} from "react-native";
+import Svg,{
+    Circle,
+    Ellipse,
+    G,
+    LinearGradient,
+    RadialGradient,
+    Line,
+    Path,
+    Polygon,
+    Polyline,
+    Rect,
+    Symbol,
+    Text,
+    Use,
+    Defs,
+    Stop
+} from 'react-native-svg';
+
+import { styles } from "../style/style.js";
+
+export default class CircleList extends Component<Props> {
+
+	state = {
+		// make this variable responsive to screen
+		width: 100
+	}
+
+  constructor(props) {
+    super(props);
+  }
+
+	generateCircle = (Ypos, width, color, index) => ({
+		position: 'absolute',
+		right: 0-width/2, 
+		bottom: Ypos - width/2,
+		width: width, 
+		height: width,
+		borderRadius: width/2,
+		backgroundColor: color,
+		zIndex: index
+	})
+
+	componentWillMount(){
+
+		this._panResponder = PanResponder.create({
+			// Ask to be the responder:
+			//onStartShouldSetPanResponder: (evt, gestureState) => true,
+			//onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+			//onMoveShouldSetPanResponder: (evt, gestureState) => true,
+			//onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+
+			////onPanResponderGrant: (evt, gestureState) => {
+			////	console.log(evt)
+			////	console.log(gestureState)
+			////},
+			////onPanResponderMove: (evt, gestureState) => {
+			////	console.log(evt)
+			////	console.log(gestureState)
+			////	return true;
+			////},
+			//onPanResponderRelease: (evt, gestureState) => {
+			//	console.log(gestureState)
+			//	console.log(evt)
+			//},
+			//onShouldBlockNativeResponder: (evt, gestureState) => {
+			//	console.log(gestureState)
+			//	console.log(evt)
+			//	return true
+			//},
+		});
+
+	}
+
+  render() {
+
+		const width = this.state.width;
+		const centerX = width;
+		const centerY = width/2;
+		const Ypos = this.props.positionY; 
+
+    return (
+
+			<Svg height={width}	width={width} style={{ position: 'absolute', bottom: Ypos, right: 200, backgroundColor: 'lightpink'}}>
+
+				<Circle
+						cx={width}
+						cy={width/2}
+						r={width/4}
+						stroke="blue"
+						strokeWidth="2.5"
+						fill="green"
+				/>
+
+				<Path d={`M ${centerX} ${centerY} A ${width} ${width} 0 0 1 ${width*0.8} ${width*0.59} L 0 0`}></Path>
+
+			</Svg>
+
+    );
+  }
+}
